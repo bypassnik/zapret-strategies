@@ -1,0 +1,20 @@
+{
+  "name": "zapret-strategies",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "parse": "tsx src/index.ts",
+    "test": "tsx src/transform.test.ts && tsx src/paths.test.ts && tsx src/bundle.test.ts && tsx src/manifest.test.ts"
+  },
+  "devDependencies": {
+    "@types/archiver": "^8.0.0",
+    "@types/node": "^22.15.21",
+    "fflate": "^0.8.3",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "archiver": "^8.0.0"
+  }
+}

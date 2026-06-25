@@ -1,0 +1,28 @@
+{
+  "versions": [
+    {
+      "release": "1.9.9c",
+      "parsedAt": "2026-06-25",
+      "strategiesCount": 20,
+      "bundle": "bundles/1.9.9c.zip"
+    },
+    {
+      "release": "1.9.9b",
+      "parsedAt": "2026-06-25",
+      "strategiesCount": 20,
+      "bundle": "bundles/1.9.9b.zip"
+    },
+    {
+      "release": "1.9.9a",
+      "parsedAt": "2026-06-25",
+      "strategiesCount": 20,
+      "bundle": "bundles/1.9.9a.zip"
+    },
+    {
+      "release": "1.9.8c",
+      "parsedAt": "2026-06-25",
+      "strategiesCount": 19,
+      "bundle": "bundles/1.9.8c.zip"
+    }
+  ]
+}
