@@ -1,6 +1,12 @@
 {
   "versions": [
     {
+      "release": "1.9.9d",
+      "parsedAt": "2026-07-04",
+      "strategiesCount": 20,
+      "bundle": "bundles/1.9.9d.zip"
+    },
+    {
       "release": "1.9.9c",
       "parsedAt": "2026-06-25",
       "strategiesCount": 20,
