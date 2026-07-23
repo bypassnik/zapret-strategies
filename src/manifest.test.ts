@@ -12,7 +12,7 @@ const tempDir = await mkdtemp(path.join(os.tmpdir(), "manifest-test-"));
 
 try {
   const entryA = createVersionIndexEntry("1.9.8c", "2026-05-26", 18);
-  assert.equal(entryA.bundle, "bundles/1.9.8c.zip");
+  assert.equal(entryA.bundle, "bundles/1.9.8c.tar.xz");
 
   const indexPath = await updateStrategiesIndex(tempDir, entryA);
   let raw = await readFile(indexPath, "utf8");

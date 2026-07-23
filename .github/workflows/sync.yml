@@ -59,7 +59,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "strategies/${{ steps.upstream.outputs.tag }}.json" strategies/index.json "bundles/${{ steps.upstream.outputs.tag }}.zip"
+          git add "strategies/${{ steps.upstream.outputs.tag }}.json" strategies/index.json "bundles/${{ steps.upstream.outputs.tag }}.tar.xz"
           git diff --staged --quiet && exit 0
           git commit -m "chore: sync strategies and bundle for Flowseal ${{ steps.upstream.outputs.tag }}"
           git push

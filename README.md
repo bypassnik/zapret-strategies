@@ -1,6 +1,6 @@
 # zapret-strategies
 
-Парсер стратегий обхода DPI из репозитория [Flowseal/zapret-discord-youtube](https://github.com/Flowseal/zapret-discord-youtube). Скачивает `general*.bat`, извлекает аргументы `winws.exe` и сохраняет их в JSON, адаптированный для **Linux-версии zapret** (nfqws). Дополнительно собирает zip-архивы с fake-файлами (`*.bin`) для OpenWrt и Windows.
+Парсер стратегий обхода DPI из репозитория [Flowseal/zapret-discord-youtube](https://github.com/Flowseal/zapret-discord-youtube). Скачивает `general*.bat`, извлекает аргументы `winws.exe` и сохраняет их в JSON, адаптированный для **Linux-версии zapret** (nfqws). Дополнительно собирает tar.xz-архивы с fake-файлами (`*.bin`) для OpenWrt и Windows.
 
 ## Требования
 
@@ -17,7 +17,7 @@ npm install
 
 ## Запуск парсера
 
-Базовая команда — скачать **последний релиз** upstream, записать JSON, собрать zip и обновить индекс:
+Базовая команда — скачать **последний релиз** upstream, записать JSON, собрать tar.xz и обновить индекс:
 
 ```bash
 npm run parse
@@ -36,8 +36,8 @@ npx tsx src/index.ts
 | `--tag VERSION` | Конкретный тег релиза GitHub (например `1.9.9c`). Без параметра — latest |
 | `--out DIR` | Каталог для JSON (имя формируется автоматически) |
 | `--out FILE.json` | Явный путь к выходному JSON |
-| `--bundles-dir DIR` | Каталог для zip (по умолчанию `bundles/`) |
-| `--skip-bundle` | Не скачивать `bin/*.bin` и не собирать zip |
+| `--bundles-dir DIR` | Каталог для tar.xz (по умолчанию `bundles/`) |
+| `--skip-bundle` | Не скачивать `bin/*.bin` и не собирать tar.xz |
 | `-h`, `--help` | Справка |
 
 Примеры:
@@ -46,14 +46,14 @@ npx tsx src/index.ts
 # конкретная версия
 npm run parse -- --tag 1.9.9c
 
-# только JSON, без zip
+# только JSON, без tar.xz
 npm run parse -- --tag 1.9.9c --skip-bundle
 ```
 
 При успешном выполнении создаются:
 
 - `strategies/<тег>.json` — стратегии для UI
-- `bundles/<тег>.zip` — fake-файлы (если не `--skip-bundle`)
+- `bundles/<тег>.tar.xz` — fake-файлы (если не `--skip-bundle`)
 - `strategies/index.json` — каталог версий
 
 ## Публикация и автосинхронизация
@@ -68,19 +68,19 @@ GitHub Actions (`.github/workflows/sync.yml`) каждые 6 часов пров
 |------|------------|
 | `strategies/index.json` | Список версий для выбора в UI |
 | `strategies/<тег>.json` | Стратегии выбранной версии |
-| `bundles/<тег>.zip` | Только `fake/*.bin` — скачивается при применении стратегии |
+| `bundles/<тег>.tar.xz` | Только `fake/*.bin` — скачивается при применении стратегии |
 
-JSON **не** входит в zip: UI загружает его отдельно до выбора стратегии.
+JSON **не** входит в tar.xz: UI загружает его отдельно до выбора стратегии.
 
 ### URL (raw.githubusercontent.com)
 
 ```
 https://raw.githubusercontent.com/<owner>/zapret-strategies/main/strategies/index.json
 https://raw.githubusercontent.com/<owner>/zapret-strategies/main/strategies/1.9.9c.json
-https://raw.githubusercontent.com/<owner>/zapret-strategies/main/bundles/1.9.9c.zip
+https://raw.githubusercontent.com/<owner>/zapret-strategies/main/bundles/1.9.9c.tar.xz
 ```
 
-Альтернатива — [jsDelivr](https://www.jsdelivr.com/): `https://cdn.jsdelivr.net/gh/<owner>/zapret-strategies@main/bundles/1.9.9c.zip`
+Альтернатива — [jsDelivr](https://www.jsdelivr.com/): `https://cdn.jsdelivr.net/gh/<owner>/zapret-strategies@main/bundles/1.9.9c.tar.xz`
 
 ### Контракт для клиента
 
@@ -97,7 +97,7 @@ const names = doc.strategies.map((s) => s.title);
 
 // 3. Бинарники (после выбора стратегии)
 const entry = versions.find((v) => v.release === tag);
-await downloadAndUnzip(`${BASE}/${entry.bundle}`, targetFakeDir);
+await downloadAndExtractTarXz(`${BASE}/${entry.bundle}`, targetFakeDir);
 // OpenWrt: /opt/zapret/files/fake/
 // Windows: <zapret>\bin\
 ```
@@ -111,7 +111,7 @@ await downloadAndUnzip(`${BASE}/${entry.bundle}`, targetFakeDir);
       "release": "1.9.9c",
       "parsedAt": "2026-06-25",
       "strategiesCount": 20,
-      "bundle": "bundles/1.9.9c.zip"
+      "bundle": "bundles/1.9.9c.tar.xz"
     }
   ]
 }
@@ -119,7 +119,7 @@ await downloadAndUnzip(`${BASE}/${entry.bundle}`, targetFakeDir);
 
 Версии отсортированы от новых к старым (`parsedAt`).
 
-### Состав zip
+### Состав tar.xz
 
 Источник: `bin/*.bin` из тега релиза Flowseal (не `main`).
 
@@ -133,7 +133,7 @@ fake/
   tls_clienthello_4pda_to.bin
 ```
 
-Один zip на версию — подходит и для OpenWrt (`unzip` через `opkg`), и для Windows.
+Один tar.xz на версию — подходит и для OpenWrt (`tar` + `xz` через `opkg`), и для Windows.
 
 ## Формат strategies JSON
 
@@ -185,7 +185,7 @@ fake/
 
 ## Использование стратегий в zapret (Linux / OpenWrt)
 
-1. Установите [zapret](https://github.com/bol-van/zapret) и распакуйте `bundles/<тег>.zip` в `/opt/zapret/files/fake/`.
+1. Установите [zapret](https://github.com/bol-van/zapret) и распакуйте `bundles/<тег>.tar.xz` в `/opt/zapret/files/fake/`.
 
 2. Выберите стратегию по `title` в JSON.
 
@@ -203,15 +203,15 @@ npm test
 
 ```
 src/
-  index.ts       — CLI, парсинг, сборка zip, обновление индекса
+  index.ts       — CLI, парсинг, сборка tar.xz, обновление индекса
   github.ts      — API GitHub (релизы, дерево, raw)
-  bundle.ts      — скачивание bin/*.bin и zip
+  bundle.ts      — скачивание bin/*.bin и tar.xz
   manifest.ts    — strategies/index.json
   transform.ts   — парсинг winws.exe
   constants.ts   — репозиторий-источник, префиксы фильтров
-  paths.ts       — пути к JSON и zip
+  paths.ts       — пути к JSON и tar.xz
 strategies/      — JSON и index.json (в git)
-bundles/         — zip-архивы (в git)
+bundles/         — tar.xz-архивы (в git)
 .github/workflows/sync.yml
 ```
 

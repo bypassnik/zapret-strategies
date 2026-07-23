@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import { buildBundleZip } from "./bundle.js";
+import { buildBundleTarXz } from "./bundle.js";
 import { REPO } from "./constants.js";
 import {
   fetchBatFile,
@@ -55,8 +55,8 @@ function parseCli(argv: string[]): CliOptions {
   --tag           Тег релиза GitHub (по умолчанию — latest)
   --out           Каталог strategies/ или явный путь к .json
                   По умолчанию: strategies/<версия>.json
-  --bundles-dir   Каталог для zip (по умолчанию: bundles/)
-  --skip-bundle   Не скачивать bin и не собирать zip
+  --bundles-dir   Каталог для tar.xz (по умолчанию: bundles/)
+  --skip-bundle   Не скачивать bin и не собирать tar.xz
 `);
       process.exit(0);
     }
@@ -111,7 +111,7 @@ async function main(): Promise<void> {
   console.log(`\nСтратегии: ${batFiles.length} → ${outFile}`);
 
   if (!skipBundle) {
-    const binNames = await buildBundleZip(releaseTag, bundleFile);
+    const binNames = await buildBundleTarXz(releaseTag, bundleFile);
     console.log(`Бандл: ${binNames.length} bin → ${bundleFile}`);
     console.log(`  ${binNames.join(", ")}`);
   }

@@ -18,9 +18,9 @@ assert.equal(
 
 assert.equal(
   buildBundleFilePath("/data/bundles", "1.9.8c"),
-  path.join("/data/bundles", "1.9.8c.zip"),
+  path.join("/data/bundles", "1.9.8c.tar.xz"),
 );
 
-assert.equal(buildBundleRelativePath("1.9.9c"), "bundles/1.9.9c.zip");
+assert.equal(buildBundleRelativePath("1.9.9c"), "bundles/1.9.9c.tar.xz");
 
 console.log("paths tests ok");

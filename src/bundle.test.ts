@@ -1,33 +1,53 @@
 import assert from "node:assert/strict";
-import { createWriteStream } from "node:fs";
-import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { createReadStream, createWriteStream } from "node:fs";
+import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { pipeline } from "node:stream/promises";
 import os from "node:os";
 import path from "node:path";
 
-import { ZipArchive } from "archiver";
-import { unzipSync } from "fflate";
+import lzma from "lzma-native";
+import * as tar from "tar";
 
-import { buildBundleZip } from "./bundle.js";
+import { buildBundleTarXz } from "./bundle.js";
 
 async function createLocalBundle(
-  fakeDir: string,
+  parentDir: string,
+  dirName: string,
   outPath: string,
 ): Promise<void> {
-  await new Promise<void>((resolve, reject) => {
-    const output = createWriteStream(outPath);
-    const archive = new ZipArchive({ zlib: { level: 9 } });
-    output.on("close", () => resolve());
-    output.on("error", reject);
-    archive.on("error", reject);
-    archive.pipe(output);
-    archive.directory(fakeDir, "fake");
-    void archive.finalize();
-  });
+  await pipeline(
+    tar.c({ cwd: parentDir, portable: true }, [dirName]),
+    lzma.createCompressor({ preset: 9 }),
+    createWriteStream(outPath),
+  );
+}
+
+async function listTarXzEntries(
+  archivePath: string,
+): Promise<Map<string, Buffer>> {
+  const entries = new Map<string, Buffer>();
+  const readStream = createReadStream(archivePath);
+
+  await pipeline(
+    readStream,
+    lzma.createDecompressor(),
+    tar.t({
+      onReadEntry: (entry) => {
+        const chunks: Buffer[] = [];
+        entry.on("data", (chunk: Buffer) => chunks.push(chunk));
+        entry.on("end", () => {
+          entries.set(entry.path, Buffer.concat(chunks));
+        });
+      },
+    }),
+  );
+
+  return entries;
 }
 
 const tempDir = await mkdtemp(path.join(os.tmpdir(), "bundle-test-"));
 const fakeDir = path.join(tempDir, "fake");
-const zipPath = path.join(tempDir, "test.zip");
+const archivePath = path.join(tempDir, "test.tar.xz");
 
 try {
   await mkdir(fakeDir, { recursive: true });
@@ -37,26 +57,25 @@ try {
     Buffer.from([4, 5]),
   );
 
-  await createLocalBundle(fakeDir, zipPath);
+  await createLocalBundle(tempDir, "fake", archivePath);
 
-  const zipData = await readFile(zipPath);
-  const entries = unzipSync(new Uint8Array(zipData));
+  const entries = await listTarXzEntries(archivePath);
 
-  assert.ok(entries["fake/stun.bin"], "fake/stun.bin в архиве");
+  assert.ok(entries.has("fake/stun.bin"), "fake/stun.bin в архиве");
   assert.ok(
-    entries["fake/quic_initial_www_google_com.bin"],
+    entries.has("fake/quic_initial_www_google_com.bin"),
     "fake/quic_initial_www_google_com.bin в архиве",
   );
   assert.equal(
-    Object.keys(entries).some((name) => name.endsWith(".json")),
+    [...entries.keys()].some((name) => name.endsWith(".json")),
     false,
     "архив не содержит json",
   );
-  assert.deepEqual([...entries["fake/stun.bin"]], [1, 2, 3]);
+  assert.deepEqual([...entries.get("fake/stun.bin")!], [1, 2, 3]);
 } finally {
   await rm(tempDir, { recursive: true, force: true });
 }
 
-assert.equal(typeof buildBundleZip, "function");
+assert.equal(typeof buildBundleTarXz, "function");
 
 console.log("bundle tests ok");

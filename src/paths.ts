@@ -13,15 +13,15 @@ export function buildStrategiesFilePath(
   return path.join(strategiesDir, `${sanitizeFilenamePart(release)}.json`);
 }
 
-/** bundles/1.9.8c.zip */
+/** bundles/1.9.8c.tar.xz */
 export function buildBundleFilePath(
   bundlesDir: string,
   release: string,
 ): string {
-  return path.join(bundlesDir, `${sanitizeFilenamePart(release)}.zip`);
+  return path.join(bundlesDir, `${sanitizeFilenamePart(release)}.tar.xz`);
 }
 
-/** bundles/1.9.8c.zip — относительный путь для index.json */
+/** bundles/1.9.8c.tar.xz — относительный путь для index.json */
 export function buildBundleRelativePath(release: string): string {
-  return `bundles/${sanitizeFilenamePart(release)}.zip`;
+  return `bundles/${sanitizeFilenamePart(release)}.tar.xz`;
 }

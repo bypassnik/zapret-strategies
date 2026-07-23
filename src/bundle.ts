@@ -1,29 +1,28 @@
 import { createWriteStream } from "node:fs";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { pipeline } from "node:stream/promises";
 import os from "node:os";
 import path from "node:path";
 
-import { ZipArchive } from "archiver";
+import lzma from "lzma-native";
+import * as tar from "tar";
 
 import { fetchRawBinary, listBinFiles } from "./github.js";
 
-function zipDirectory(sourceDir: string, zipPrefix: string, outPath: string): Promise<void> {
-  return new Promise((resolve, reject) => {
-    const output = createWriteStream(outPath);
-    const archive = new ZipArchive({ zlib: { level: 9 } });
-
-    output.on("close", () => resolve());
-    output.on("error", reject);
-    archive.on("error", reject);
-
-    archive.pipe(output);
-    archive.directory(sourceDir, zipPrefix);
-    void archive.finalize();
-  });
+function tarXzDirectory(
+  parentDir: string,
+  dirName: string,
+  outPath: string,
+): Promise<void> {
+  return pipeline(
+    tar.c({ cwd: parentDir, portable: true }, [dirName]),
+    lzma.createCompressor({ preset: 9 }),
+    createWriteStream(outPath),
+  );
 }
 
-/** Скачивает bin/*.bin с тега релиза и упаковывает в zip с каталогом fake/. */
-export async function buildBundleZip(
+/** Скачивает bin/*.bin с тега релиза и упаковывает в tar.xz с каталогом fake/. */
+export async function buildBundleTarXz(
   ref: string,
   outPath: string,
 ): Promise<string[]> {
@@ -47,7 +46,7 @@ export async function buildBundleZip(
     }
 
     await mkdir(path.dirname(outPath), { recursive: true });
-    await zipDirectory(fakeDir, "fake", outPath);
+    await tarXzDirectory(tempDir, "fake", outPath);
     return downloaded;
   } finally {
     await rm(tempDir, { recursive: true, force: true });
