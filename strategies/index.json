@@ -1,6 +1,12 @@
 {
   "versions": [
     {
+      "release": "1.10.1",
+      "parsedAt": "2026-08-09",
+      "strategiesCount": 21,
+      "bundle": "bundles/1.10.1.tar.xz"
+    },
+    {
       "release": "1.10.0",
       "parsedAt": "2026-07-22",
       "strategiesCount": 21,

@@ -1,0 +1,379 @@
+{
+  "source": "Flowseal/zapret-discord-youtube",
+  "parsedAt": "2026-08-09",
+  "release": "1.10.1",
+  "strategies": [
+    {
+      "title": "general (ALT)",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=fake,fakedsplit --dpi-desync-repeats=6 --dpi-desync-fooling=ts --dpi-desync-fakedsplit-pattern=0x00 --dpi-desync-fake-tls=/opt/zapret/files/fake/stun.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=fake,fakedsplit --dpi-desync-repeats=6 --dpi-desync-fooling=ts --dpi-desync-fakedsplit-pattern=0x00 --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=6"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=fake,fakedsplit --dpi-desync-repeats=6 --dpi-desync-fooling=ts --dpi-desync-fakedsplit-pattern=0x00 --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=fake,fakedsplit --dpi-desync-repeats=6 --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n4 --dpi-desync-fooling=ts --dpi-desync-fakedsplit-pattern=0x00 --dpi-desync-fake-tls=/opt/zapret/files/fake/stun.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/stun.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=12 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n3"
+      }
+    },
+    {
+      "title": "general (ALT10)",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fooling=ts --dpi-desync-fake-tls=/opt/zapret/files/fake/stun.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_4pda_to.bin --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fooling=ts --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-tls-mod=none",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=6"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fooling=ts --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n3 --dpi-desync-fooling=ts --dpi-desync-fake-tls=/opt/zapret/files/fake/stun.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_4pda_to.bin --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/stun.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/tls_clienthello_4pda_to.bin",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=12 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n2"
+      }
+    },
+    {
+      "title": "general (ALT11)",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=fake,multisplit --dpi-desync-split-seqovl=664 --dpi-desync-split-pos=1 --dpi-desync-fooling=ts --dpi-desync-repeats=8 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/stun2.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=11 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=fake,multisplit --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-fooling=ts --dpi-desync-repeats=8 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=6"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=fake,multisplit --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-fooling=ts --dpi-desync-repeats=8 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=fake,multisplit --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n4 --dpi-desync-split-seqovl=664 --dpi-desync-split-pos=1 --dpi-desync-fooling=ts --dpi-desync-repeats=8 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/stun2.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/stun2.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=10 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n4"
+      }
+    },
+    {
+      "title": "general (ALT12)",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=fake,multisplit --dpi-desync-split-seqovl=664 --dpi-desync-split-pos=1 --dpi-desync-fooling=ts --dpi-desync-repeats=8 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/stun.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=11 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=fake,multisplit --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-fooling=ts --dpi-desync-repeats=8 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/stun.bin --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=3"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=hostfakesplit --dpi-desync-fooling=ts --dpi-desync-hostfakesplit-mod=host=www.google.com"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=fake,multisplit --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n4 --dpi-desync-split-seqovl=664 --dpi-desync-split-pos=1 --dpi-desync-fooling=ts --dpi-desync-repeats=8 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/stun.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/stun.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=10 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n4"
+      }
+    },
+    {
+      "title": "general (ALT2)",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=multisplit --dpi-desync-split-seqovl=652 --dpi-desync-split-pos=2 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=multisplit --dpi-desync-split-seqovl=652 --dpi-desync-split-pos=2 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=6"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=multisplit --dpi-desync-split-seqovl=652 --dpi-desync-split-pos=2 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=multisplit --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n3 --dpi-desync-split-seqovl=652 --dpi-desync-split-pos=2 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=12 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n2"
+      }
+    },
+    {
+      "title": "general (ALT3)",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=fake,hostfakesplit --dpi-desync-fake-tls-mod=rnd,dupsid,sni=ya.ru --dpi-desync-hostfakesplit-mod=host=ya.ru,altorder=1 --dpi-desync-fooling=ts --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=fake,hostfakesplit --dpi-desync-fake-tls-mod=rnd,dupsid,sni=www.google.com --dpi-desync-hostfakesplit-mod=host=www.google.com,altorder=1 --dpi-desync-fooling=ts",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=6"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=fake,hostfakesplit --dpi-desync-fake-tls-mod=rnd,dupsid,sni=www.google.com --dpi-desync-hostfakesplit-mod=host=www.google.com,altorder=1 --dpi-desync-fooling=ts"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=fake,hostfakesplit --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n4 --dpi-desync-fake-tls-mod=rnd,dupsid,sni=ya.ru --dpi-desync-hostfakesplit-mod=host=ya.ru,altorder=1 --dpi-desync-fooling=ts --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=10 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n4"
+      }
+    },
+    {
+      "title": "general (ALT4)",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=fake,multisplit --dpi-desync-repeats=6 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=1000 --dpi-desync-fake-tls=/opt/zapret/files/fake/stun.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=fake,multisplit --dpi-desync-repeats=6 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=1000 --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=6"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=fake,multisplit --dpi-desync-repeats=6 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=1000 --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=fake,multisplit --dpi-desync-repeats=6 --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n3 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=1000 --dpi-desync-fake-tls=/opt/zapret/files/fake/stun.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/stun.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=10 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n2"
+      }
+    },
+    {
+      "title": "general (ALT5)",
+      "general": {
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=6"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=syndata,multidisorder --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n4",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=14 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n3"
+      }
+    },
+    {
+      "title": "general (ALT6)",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=multisplit --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=multisplit --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=6"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=multisplit --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=multisplit --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n3 --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=12 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n2"
+      }
+    },
+    {
+      "title": "general (ALT7)",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=multisplit --dpi-desync-split-pos=2,sniext+1 --dpi-desync-split-seqovl=679 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=multisplit --dpi-desync-split-pos=2,sniext+1 --dpi-desync-split-seqovl=679 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=6"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=multisplit --dpi-desync-split-pos=2,sniext+1 --dpi-desync-split-seqovl=679 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=syndata --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n4",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=12 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n2"
+      }
+    },
+    {
+      "title": "general (ALT8)",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=fake --dpi-desync-fake-tls-mod=none --dpi-desync-repeats=6 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=2 --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=fake --dpi-desync-fake-tls-mod=none --dpi-desync-repeats=6 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=2",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=6"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=fake --dpi-desync-fake-tls-mod=none --dpi-desync-repeats=6 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=2"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=fake --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n3 --dpi-desync-fake-tls-mod=none --dpi-desync-repeats=6 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=2 --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=12 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n2"
+      }
+    },
+    {
+      "title": "general (ALT9)",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=hostfakesplit --dpi-desync-repeats=4 --dpi-desync-fooling=ts,md5sig --dpi-desync-hostfakesplit-mod=host=ozon.ru",
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=hostfakesplit --dpi-desync-repeats=4 --dpi-desync-fooling=ts --dpi-desync-hostfakesplit-mod=host=www.google.com",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=6"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=hostfakesplit --dpi-desync-repeats=4 --dpi-desync-fooling=ts --dpi-desync-hostfakesplit-mod=host=www.google.com"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=hostfakesplit --dpi-desync-repeats=4 --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n3 --dpi-desync-fooling=ts --dpi-desync-hostfakesplit-mod=host=ozon.ru",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=12 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n2"
+      }
+    },
+    {
+      "title": "general (EXP)",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=fake,multisplit --dpi-desync-split-seqovl=480 --dpi-desync-split-pos=1 --dpi-desync-fooling=ts --dpi-desync-repeats=4 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/stun2.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=fake,multisplit --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-fooling=ts --dpi-desync-repeats=8 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun,unknown --dpi-desync=fake --dpi-desync-any-protocol=1 --dpi-desync-fake-discord=/opt/zapret/files/fake/quic_initial_www_google_com.bin --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/quic_initial_www_google_com.bin --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=4"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=hostfakesplit --dpi-desync-fooling=ts --dpi-desync-hostfakesplit-mod=host=www.google.com"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=fake,multisplit --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n4 --dpi-desync-split-seqovl=664 --dpi-desync-split-pos=1 --dpi-desync-fooling=ts --dpi-desync-repeats=8 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/stun2.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=5 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/quic_initial_4pda.to.bin --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n4"
+      }
+    },
+    {
+      "title": "general (FAKE TLS AUTO ALT)",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=fake,fakedsplit --dpi-desync-split-pos=1 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=2 --dpi-desync-repeats=8 --dpi-desync-fake-tls-mod=rnd,dupsid,sni=www.google.com --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=11 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=fake,fakedsplit --dpi-desync-split-pos=1 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=2 --dpi-desync-repeats=8 --dpi-desync-fake-tls-mod=rnd,dupsid,sni=www.google.com",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=6"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=fake,fakedsplit --dpi-desync-split-pos=1 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=2 --dpi-desync-repeats=8 --dpi-desync-fake-tls-mod=rnd,dupsid,sni=www.google.com"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=fake,fakedsplit --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n3 --dpi-desync-split-pos=1 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=2 --dpi-desync-repeats=8 --dpi-desync-fake-tls-mod=rnd,dupsid,sni=www.google.com --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=10 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n2"
+      }
+    },
+    {
+      "title": "general (FAKE TLS AUTO ALT2)",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=fake,multisplit --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=10000000 --dpi-desync-repeats=8 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-tls-mod=rnd,dupsid,sni=www.google.com --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=11 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=fake,multisplit --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=10000000 --dpi-desync-repeats=8 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-tls-mod=rnd,dupsid,sni=www.google.com",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=6"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=fake,multisplit --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=10000000 --dpi-desync-repeats=8 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-tls-mod=rnd,dupsid,sni=www.google.com"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=fake,multisplit --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n3 --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=10000000 --dpi-desync-repeats=8 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-tls-mod=rnd,dupsid,sni=www.google.com --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=10 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n2"
+      }
+    },
+    {
+      "title": "general (FAKE TLS AUTO ALT3)",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=fake,multisplit --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-fooling=ts --dpi-desync-repeats=8 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-tls-mod=rnd,dupsid,sni=www.google.com --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=11 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=fake,multisplit --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-fooling=ts --dpi-desync-repeats=8 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-tls-mod=rnd,dupsid,sni=www.google.com",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=6"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=fake,multisplit --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-fooling=ts --dpi-desync-repeats=8 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-tls-mod=rnd,dupsid,sni=www.google.com"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=fake,multisplit --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n4 --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-fooling=ts --dpi-desync-repeats=8 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-tls-mod=rnd,dupsid,sni=www.google.com --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=10 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n3"
+      }
+    },
+    {
+      "title": "general (FAKE TLS AUTO)",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=fake,multidisorder --dpi-desync-split-pos=1,midsld --dpi-desync-repeats=11 --dpi-desync-fooling=badseq --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls= ! --dpi-desync-fake-tls-mod=rnd,dupsid,sni=www.google.com --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=11 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=fake,multidisorder --dpi-desync-split-pos=1,midsld --dpi-desync-repeats=11 --dpi-desync-fooling=badseq --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls= ! --dpi-desync-fake-tls-mod=rnd,dupsid,sni=www.google.com",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=6"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=fake,multidisorder --dpi-desync-split-pos=1,midsld --dpi-desync-repeats=11 --dpi-desync-fooling=badseq --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls= ! --dpi-desync-fake-tls-mod=rnd,dupsid,sni=www.google.com"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=fake,multidisorder --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n4 --dpi-desync-split-pos=1,midsld --dpi-desync-repeats=11 --dpi-desync-fooling=badseq --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls= ! --dpi-desync-fake-tls-mod=rnd,dupsid,sni=www.google.com --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-unknown=0x00000000 --dpi-desync-fake-unknown=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=10 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n2"
+      }
+    },
+    {
+      "title": "general (SIMPLE FAKE ALT)",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=2 --dpi-desync-fake-tls=/opt/zapret/files/fake/stun2.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=2 --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=6"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=2 --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n3 --dpi-desync-fooling=badseq --dpi-desync-badseq-increment=2 --dpi-desync-fake-tls=/opt/zapret/files/fake/stun2.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/stun2.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=10 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n2"
+      }
+    },
+    {
+      "title": "general (SIMPLE FAKE ALT2)",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fooling=ts --dpi-desync-fake-tls=/opt/zapret/files/fake/stun2.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fooling=ts --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=6"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fooling=ts --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n5 --dpi-desync-fooling=ts --dpi-desync-fake-tls=/opt/zapret/files/fake/stun2.bin --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/stun2.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=12 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n3"
+      }
+    },
+    {
+      "title": "general (SIMPLE FAKE)",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fooling=ts --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin",
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fooling=ts --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=6"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=hostfakesplit --dpi-desync-fooling=ts --dpi-desync-hostfakesplit-mod=host=www.google.com"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n4 --dpi-desync-fooling=ts --dpi-desync-fake-tls=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin --dpi-desync-fake-http=/opt/zapret/files/fake/tls_clienthello_max_ru.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/stun2.bin --dpi-desync-fake-unknown=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=12 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n3"
+      }
+    },
+    {
+      "title": "general",
+      "general": {
+        "tcp": "--filter-tcp=80,443 --dpi-desync=multisplit --dpi-desync-split-seqovl=568 --dpi-desync-split-pos=1 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_4pda_to.bin",
+        "udp": "--filter-udp=443 --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fake-quic=/opt/zapret/files/fake/quic_initial_www_google_com.bin"
+      },
+      "discord": {
+        "tcp": "--filter-tcp=2053,2083,2087,2096,8443 --dpi-desync=multisplit --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin",
+        "udp": "--filter-udp=19294-19344,50000-50100 --filter-l7=discord,stun --dpi-desync=fake --dpi-desync-fake-discord=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-fake-stun=/opt/zapret/files/fake/ACTIVE_DISCORD_UDP.bin --dpi-desync-repeats=6"
+      },
+      "youtube": {
+        "tcp": "--filter-tcp=443 --ip-id=zero --dpi-desync=multisplit --dpi-desync-split-seqovl=681 --dpi-desync-split-pos=1 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_www_google_com.bin"
+      },
+      "games": {
+        "tcp": "--filter-tcp=1024-65535 --dpi-desync=multisplit --dpi-desync-any-protocol=1 --dpi-desync-cutoff=n3 --dpi-desync-split-seqovl=568 --dpi-desync-split-pos=1 --dpi-desync-split-seqovl-pattern=/opt/zapret/files/fake/tls_clienthello_4pda_to.bin",
+        "udp": "--filter-udp=1024-65535 --dpi-desync=fake --dpi-desync-repeats=12 --dpi-desync-any-protocol=1 --dpi-desync-fake-unknown-udp=/opt/zapret/files/fake/ACTIVE_GAME_UDP.bin --dpi-desync-cutoff=n2"
+      }
+    }
+  ]
+}
